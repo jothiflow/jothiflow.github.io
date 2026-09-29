@@ -1,7 +1,7 @@
 # jothiflow.github.io
 
 Static, multilingual (en/fr) signup page published with GitHub Pages. It posts to the
-[`systemeio-saving-contacts`](https://github.com/jothiflow/systemeio-saving-contacts) Worker,
+[`systemeio-saving-contacts-cloudflare-worker`](https://github.com/jothiflow/systemeio-saving-contacts-cloudflare-worker) Worker,
 which saves the contact in systeme.io. No build step.
 
 ## Configure

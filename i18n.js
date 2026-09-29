@@ -1,5 +1,5 @@
 // UI strings. To add a language: add it here, and to LANG_NAMES; the Worker must support it too
-// (LOCALES in systemeio-saving-contacts/src/i18n.ts) or it will answer errors in English.
+// (LOCALES in systemeio-saving-contacts-cloudflare-worker/src/i18n.ts) or it will answer errors in English.
 export const LANG_NAMES = { en: 'English', fr: 'Français' };
 export const DEFAULT_LANG = 'en';
 
