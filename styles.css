@@ -31,7 +31,13 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .check { display: grid; grid-template-columns: auto 1fr; gap: 0 10px; align-items: start; }
 .check input { margin-top: 5px; }
 .check label { font-weight: 400; margin: 0; }
-.check .error { grid-column: 2; }
+.check .privacy-link { grid-column: 2; margin: 4px 0 0; font-size: 0.875rem; }
+a { color: var(--accent); }
+.policy h2 { margin: 24px 0 4px; font-size: 1.1rem; }
+.policy p, .policy ul { margin: 4px 0; }
+.policy ul { padding-left: 20px; }
+.back { display: inline-block; margin-top: 24px; }
+.error { grid-column: 2; }
 .error { margin: 4px 0 0; color: var(--danger); font-size: 0.875rem; }
 .form-error { margin-bottom: 12px; }
 button {

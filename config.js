@@ -7,4 +7,6 @@ export const config = {
   turnstileSiteKey: '',
   // Identifies this form in the systeme.io `signup_source` field.
   source: 'jothiflow.github.io',
+  // Contact shown on the privacy page for data requests (access, deletion, ...).
+  privacyContact: 'CHANGE-ME@example.com',
 };

@@ -1,38 +1,14 @@
 import { config } from './config.js';
-import { LANG_NAMES, STRINGS, pickLang } from './i18n.js';
+import { STRINGS } from './i18n.js';
+import { initLang } from './lang.js';
 
 const $ = (id) => document.getElementById(id);
 const FIELDS = ['firstName', 'lastName', 'email', 'phone', 'consent'];
-const STORAGE_KEY = 'lang';
 
-// localStorage can throw (private mode, blocked site data): the page must work without it.
-const storage = {
-  get() { try { return localStorage.getItem(STORAGE_KEY); } catch { return null; } },
-  set(v) { try { localStorage.setItem(STORAGE_KEY, v); } catch { /* ignore */ } },
-};
-
-let lang = pickLang(storage.get(), navigator.languages ?? [navigator.language]);
+let lang;
 let turnstileToken = '';
 let turnstileWidget = null;
 const t = (key) => STRINGS[lang][key];
-
-// ---------- language ----------
-
-function applyLang() {
-  document.documentElement.lang = lang;
-  document.title = t('pageTitle');
-  for (const el of document.querySelectorAll('[data-i18n]')) el.textContent = t(el.dataset.i18n);
-  if (!$('submit').disabled) $('submit').textContent = t('submit');
-  $('lang').value = lang;
-}
-
-for (const [code, name] of Object.entries(LANG_NAMES)) $('lang').add(new Option(name, code));
-$('lang').addEventListener('change', (e) => {
-  lang = pickLang(e.target.value);
-  storage.set(lang);
-  clearErrors(); // server messages are in the previous language
-  applyLang();
-});
 
 // ---------- errors ----------
 
@@ -136,5 +112,9 @@ $('signup').addEventListener('submit', async (e) => {
   }
 });
 
-applyLang();
+initLang($('lang'), (l) => {
+  lang = l;
+  clearErrors(); // server messages are in the previous language
+  if ($('submit').disabled) $('submit').textContent = t('sending');
+});
 initTurnstile();

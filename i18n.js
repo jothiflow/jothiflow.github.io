@@ -23,6 +23,9 @@ export const STRINGS = {
     required: 'This field is required.',
     invalid: 'Invalid value.',
     language: 'Language',
+    privacyLink: 'Privacy policy',
+    privacyTitle: 'Privacy policy – Jothiflow',
+    backToForm: '← Back to the sign-up form',
   },
   fr: {
     pageTitle: 'Rejoindre Jothiflow',
@@ -43,6 +46,9 @@ export const STRINGS = {
     required: 'Ce champ est obligatoire.',
     invalid: 'Valeur invalide.',
     language: 'Langue',
+    privacyLink: 'Politique de confidentialité',
+    privacyTitle: 'Politique de confidentialité – Jothiflow',
+    backToForm: '← Retour au formulaire d’inscription',
   },
 };
 

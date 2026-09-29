@@ -11,11 +11,22 @@ test('every language defines exactly the same keys', () => {
   }
 });
 
-test('every data-i18n key used in index.html exists', () => {
-  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-  const keys = [...html.matchAll(/data-i18n="([^"]+)"/g)].map((m) => m[1]);
-  assert.ok(keys.length > 0);
-  for (const key of keys) assert.ok(key in STRINGS[DEFAULT_LANG], key);
+const page = (name) => readFileSync(new URL(`../${name}`, import.meta.url), 'utf8');
+
+for (const name of ['index.html', 'privacy.html']) {
+  test(`every data-i18n and data-title key used in ${name} exists`, () => {
+    const html = page(name);
+    const keys = [...html.matchAll(/data-(?:i18n|title)="([^"]+)"/g)].map((m) => m[1]);
+    assert.ok(keys.length > 0);
+    for (const key of keys) assert.ok(key in STRINGS[DEFAULT_LANG], key);
+  });
+}
+
+test('privacy.html has one article per language, with matching lang attributes', () => {
+  const html = page('privacy.html');
+  for (const lang of Object.keys(STRINGS)) {
+    assert.match(html, new RegExp(`<article data-lang="${lang}" lang="${lang}"`), lang);
+  }
 });
 
 test('language detection', () => {
