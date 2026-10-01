@@ -25,6 +25,8 @@ export const STRINGS = {
     language: 'Language',
     privacyLink: 'Privacy policy',
     privacyTitle: 'Privacy policy – Jothiflow',
+    emailLink: 'How we send email',
+    emailTitle: 'How we send email – Jothiflow',
     backToForm: '← Back to the sign-up form',
   },
   fr: {
@@ -48,6 +50,8 @@ export const STRINGS = {
     language: 'Langue',
     privacyLink: 'Politique de confidentialité',
     privacyTitle: 'Politique de confidentialité – Jothiflow',
+    emailLink: 'Comment nous envoyons des emails',
+    emailTitle: 'Comment nous envoyons des emails – Jothiflow',
     backToForm: '← Retour au formulaire d’inscription',
   },
 };

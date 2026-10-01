@@ -13,7 +13,7 @@ test('every language defines exactly the same keys', () => {
 
 const page = (name) => readFileSync(new URL(`../${name}`, import.meta.url), 'utf8');
 
-for (const name of ['index.html', 'privacy.html']) {
+for (const name of ['index.html', 'privacy.html', 'email.html']) {
   test(`every data-i18n and data-title key used in ${name} exists`, () => {
     const html = page(name);
     const keys = [...html.matchAll(/data-(?:i18n|title)="([^"]+)"/g)].map((m) => m[1]);
@@ -22,12 +22,14 @@ for (const name of ['index.html', 'privacy.html']) {
   });
 }
 
-test('privacy.html has one article per language, with matching lang attributes', () => {
-  const html = page('privacy.html');
-  for (const lang of Object.keys(STRINGS)) {
-    assert.match(html, new RegExp(`<article data-lang="${lang}" lang="${lang}"`), lang);
-  }
-});
+for (const name of ['privacy.html', 'email.html']) {
+  test(`${name} has one article per language, with matching lang attributes`, () => {
+    const html = page(name);
+    for (const lang of Object.keys(STRINGS)) {
+      assert.match(html, new RegExp(`<article data-lang="${lang}" lang="${lang}"`), lang);
+    }
+  });
+}
 
 test('language detection', () => {
   assert.equal(matchLang('FR-ca'), 'fr');
