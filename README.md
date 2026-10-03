@@ -11,10 +11,11 @@ Edit `config.js`:
 | Key | Value |
 | --- | --- |
 | `workerUrl` | URL printed by `npx wrangler deploy` in the Worker repo |
-| `turnstileSiteKey` | Cloudflare Turnstile **site** key (public). Required if the Worker has `TURNSTILE_SECRET_KEY` set; add `jothiflow.github.io` to the widget's domains |
+| `turnstileSiteKey` | Cloudflare Turnstile **site** key (public). Required if the Worker has `TURNSTILE_SECRET_KEY` set; add every hostname the page is served from (`jothiflow.com`, `www.jothiflow.com`, `jothiflow.github.io`) to the widget's domains |
 | `source` | Value stored in the `signup_source` contact field |
 
-In the Worker's `wrangler.toml`, `ALLOWED_ORIGINS` must contain `https://jothiflow.github.io`.
+In the Worker's `wrangler.toml`, `ALLOWED_ORIGINS` must contain every origin the page is served from:
+`https://jothiflow.com`, `https://www.jothiflow.com` and, while it redirects, `https://jothiflow.github.io`.
 
 ## Languages
 
@@ -36,3 +37,18 @@ npm run serve    # local static server (add its origin to the Worker's ALLOWED_O
 
 Repo settings → Pages → deploy from branch `main`, folder `/`.
 (GitHub Pages on a private repo needs a paid plan; otherwise the repo must be public.)
+
+## Custom domain
+
+The site is served at **https://jothiflow.com** (`www` redirects to it, and so does the old
+`jothiflow.github.io` address). The `CNAME` file names the domain; keep it, because GitHub Pages
+reads the setting from it. DNS is at Cloudflare and must stay **DNS only** (grey cloud) so GitHub
+can issue the certificate:
+
+| Name | Type | Target |
+| --- | --- | --- |
+| `jothiflow.com` (apex) | CNAME (flattened by Cloudflare) | `jothiflow.github.io` |
+| `www` | CNAME | `jothiflow.github.io` |
+
+The apex has mail records beside it (MX, SPF, DKIM, DMARC for the sending domain); changing the
+web records does not touch them.
